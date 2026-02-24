@@ -3,7 +3,7 @@
 > A personal developer portfolio showcasing projects, skills, experience, and contact information — built with modern web technologies and deployed on Vercel.
 
 🔗 **Live Demo:** https://ziad-mohamed-alsayed.vercel.app/  
-📌 **GitHub Repo:** https://github.com/ziad-mohamed-mern/InternIntelligence_Portfolio
+📌 **GitHub Repo:** https://github.com/ziad-mohamed-mern/Ziad_Mohamed_Portfolio
 
 ---
 
