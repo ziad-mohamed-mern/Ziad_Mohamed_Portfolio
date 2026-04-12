@@ -28,7 +28,8 @@ const allowedOrigins = [
     "http://localhost:5174",
     "http://localhost:5175",
     "https://ziad-mohamed-alsayed.vercel.app",
-    "https://intern-intelligence-portfolio-eosin.vercel.app"
+    "https://intern-intelligence-portfolio-eosin.vercel.app",
+    "https://intern-intelligence-portfolio-ntav.vercel.app"
 ];
 
 app.use(cors({
