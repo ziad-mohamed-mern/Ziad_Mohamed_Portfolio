@@ -18,7 +18,7 @@ const swaggerSpec = require("./swagger");
 
 const app = express();
 
-// 1. CORS Configuration (MUST BE AT THE TOP)
+// 1. Manual CORS Middleware (More robust than the 'cors' package for some environments)
 const allowedOrigins = [
     "http://localhost:5173",
     "http://localhost:5174",
@@ -28,14 +28,21 @@ const allowedOrigins = [
     "https://intern-intelligence-portfolio-ntav.vercel.app"
 ];
 
-app.use(cors({
-    origin: allowedOrigins,
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Cache-Control', 'Pragma'],
-    exposedHeaders: ['Content-Range', 'X-Content-Range'],
-    maxAge: 600
-}));
+app.use((req, res, next) => {
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin) || !origin) {
+        res.setHeader('Access-Control-Allow-Origin', origin || '*');
+    }
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept, X-Requested-With, Cache-Control, Pragma');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    
+    // Handle Preflight (OPTIONS)
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(204);
+    }
+    next();
+});
 
 // 2. Body Parsers
 app.use(express.json());
@@ -48,43 +55,7 @@ app.get("/api-docs.json", (req, res) => {
 });
 
 app.get("/api-docs", (req, res) => {
-    const html = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>InternIntelligence API Docs</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.10.5/swagger-ui.css">
-        <style>
-            body { margin: 0; padding: 0; }
-            .swagger-ui .topbar { display: none; }
-        </style>
-    </head>
-    <body>
-        <div id="swagger-ui"></div>
-        <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.10.5/swagger-ui-bundle.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.10.5/swagger-ui-standalone-preset.js"></script>
-        <script>
-            window.onload = function() {
-                SwaggerUIBundle({
-                    url: "/api-docs.json",
-                    dom_id: '#swagger-ui',
-                    deepLinking: true,
-                    presets: [
-                        SwaggerUIBundle.presets.apis,
-                        SwaggerUIStandalonePreset
-                    ],
-                    plugins: [
-                        SwaggerUIBundle.plugins.DownloadUrl
-                    ],
-                    layout: "StandaloneLayout"
-                });
-            };
-        </script>
-    </body>
-    </html>
-    `;
+    const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>InternIntelligence API Docs</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.10.5/swagger-ui.css"></head><body><div id="swagger-ui"></div><script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.10.5/swagger-ui-bundle.js"></script><script>window.onload = function() { SwaggerUIBundle({ url: "/api-docs.json", dom_id: '#swagger-ui', deepLinking: true, presets: [ SwaggerUIBundle.presets.apis ], layout: "BaseLayout" }); };</script></body></html>`;
     res.send(html);
 });
 
@@ -96,9 +67,15 @@ app.use('/api/v1/product', productRoutes);
 app.use('/api/v1/message', messageRoutes);
 app.use('/api/v1/analytics', analyticsRoutes);
 
-// Root route (يجب أن يكون متاحًا للـ Health Check)
+// Root route
 app.get('/', (req, res) => {
     res.send('Server is running');
+});
+
+// 404 Not Found Handler (Helpful for debugging)
+app.use((req, res) => {
+    console.log(`404 - Not Found: ${req.method} ${req.url}`);
+    res.status(404).json({ message: `Route ${req.method} ${req.url} not found` });
 });
 
 module.exports = app;
