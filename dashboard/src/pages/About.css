@@ -1,0 +1,128 @@
+@keyframes gradientBorder {
+  0% {
+    border-image-source: linear-gradient(45deg, #667eea, #764ba2);
+  }
+  50% {
+    border-image-source: linear-gradient(45deg, #f093fb, #f5576c);
+  }
+  100% {
+    border-image-source: linear-gradient(45deg, #667eea, #764ba2);
+  }
+}
+
+.about-layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 360px) 1fr;
+  gap: 24px;
+}
+
+.about-form {
+  border-radius: 20px;
+  border: 2px solid transparent;
+  border-image-slice: 1;
+  animation: gradientBorder 6s linear infinite;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.07);
+}
+
+.about-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.about-card {
+  background: white;
+  border-radius: 20px;
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  align-items: flex-start;
+}
+
+.about-card__media {
+  width: 120px;
+  height: 120px;
+  border-radius: 18px;
+  background: rgba(226, 232, 240, 0.6);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-card__body {
+  flex: 1;
+}
+
+.about-card__body h3 {
+  margin: 0;
+}
+
+.about-card__body .role {
+  margin: 4px 0 12px;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.about-card__body .description {
+  color: #4a5568;
+  margin: 0 0 12px;
+}
+
+.about-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.about-meta span {
+  background: rgba(237, 242, 247, 0.9);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.cv-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.about-card__actions {
+  display: flex;
+  gap: 8px;
+}
+
+@media (max-width: 960px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .about-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-card__media {
+    width: 150px;
+    height: 150px;
+  }
+
+  .about-card__actions {
+    justify-content: center;
+  }
+}
+

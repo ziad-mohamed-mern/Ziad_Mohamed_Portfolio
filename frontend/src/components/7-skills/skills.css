@@ -1,0 +1,51 @@
+section.skills {
+  margin-top: 3rem;
+}
+
+section.skills .header {
+  font-size: 2.1rem;
+  color: var(--title);
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+section.skills .header::before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 3px;
+  background-color: var(--title);
+  bottom: -10px;
+}
+
+section.skills .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.skill-card {
+  border: 1px solid var(--border);
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1rem;
+  transition: 0.3s;
+}
+
+.skill-card:hover {
+  border-color: var(--blue);
+  scale: 1.01;
+}
+
+.skill-title {
+  color: var(--title);
+  font-weight: 600;
+}
+
+.skill-level {
+  color: var(--subtitle);
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+}
