@@ -1,0 +1,135 @@
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.product-card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+  animation: fadeInUp 0.4s ease forwards;
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card__media {
+  position: relative;
+  width: 100%;
+  padding-top: 56%;
+  overflow: hidden;
+}
+
+.product-card__media img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.chip-featured {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+  color: #1a202c;
+}
+
+.product-card__body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.product-card__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.product-card__header h3 {
+  margin: 0 0 6px;
+  font-size: 20px;
+}
+
+.product-card__header p {
+  margin: 0;
+  color: #4a5568;
+  font-size: 14px;
+}
+
+.product-card__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.product-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tech-pill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.product-links {
+  display: flex;
+  gap: 16px;
+}
+
+.product-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.products-grid .empty-state {
+  grid-column: 1 / -1;
+}
+
+.form-group small {
+  color: #a0aec0;
+  font-size: 12px;
+}
+
+@media (max-width: 640px) {
+  .panel-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .product-card__header {
+    flex-direction: column;
+  }
+
+  .product-links {
+    flex-direction: column;
+  }
+}
+

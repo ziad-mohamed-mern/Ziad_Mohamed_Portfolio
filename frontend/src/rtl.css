@@ -1,0 +1,16 @@
+/* RTL Specific Styles */
+[dir="rtl"] {
+  font-family: 'Cairo', 'Tajawal', sans-serif;
+}
+
+/* RTL Specific Styles */
+[dir="rtl"] {
+  font-family: 'Cairo', 'Tajawal', sans-serif;
+}
+
+/* 
+   Layout adjustments (aside, main, margins, paddings) have been removed 
+   because they are now handled by Tailwind's logical properties (ms-, start-, etc.)
+   in the components themselves.
+*/
+
