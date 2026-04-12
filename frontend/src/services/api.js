@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://ziadmohamed-upb2d9vu.b4a.run/api/v1';
+const API_BASE_URL = 'https://ziadmohamed-zbcluws6.b4a.run/api/v1';
 
 /**
  * Fetch all skills from the backend
