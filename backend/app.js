@@ -2,6 +2,9 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 
+// Load environment variables
+dotenv.config();
+
 // Routes
 const userRoutes = require("./routes/user.routes.js");
 const skillRoutes = require("./routes/skill.routes.js");
@@ -13,16 +16,9 @@ const analyticsRoutes = require("./routes/analytics.routes.js");
 // Swagger
 const swaggerSpec = require("./swagger");
 
-// Load environment variables
-dotenv.config();
-
 const app = express();
 
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// CORS configuration
+// 1. CORS Configuration (MUST BE AT THE TOP)
 const allowedOrigins = [
     "http://localhost:5173",
     "http://localhost:5174",
@@ -33,22 +29,17 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-    origin: function (origin, callback) {
-        // allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
-            var msg = 'The CORS policy for this site does not ' +
-                'allow access from the specified Origin.';
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
-    },
+    origin: allowedOrigins,
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Cache-Control', 'Pragma'],
     exposedHeaders: ['Content-Range', 'X-Content-Range'],
     maxAge: 600
 }));
+
+// 2. Body Parsers
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Swagger Configuration
 app.get("/api-docs.json", (req, res) => {
