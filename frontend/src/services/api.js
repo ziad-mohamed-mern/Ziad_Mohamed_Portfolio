@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://ziadmohamed-70i5wret.b4a.run/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://ziadmohamedportfolio-production.up.railway.app/api/v1';
 
 /**
  * Fetch all skills from the backend
